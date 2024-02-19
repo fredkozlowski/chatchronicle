@@ -1,14 +1,37 @@
-// src/Login.js
-
 import React, { useState } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const loginUser = async (email, password) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Insert authentication logic here
+    const result = await loginUser(email, password);
+    if (result.error) {
+      alert(result.error);
+    } else {
+      // Store the authToken in localStorage
+      localStorage.setItem('authToken', result.token);
+      alert('Login successful!');
+      // Handle post-login logic, like redirecting to the dashboard
+    }
   };
 
   return (

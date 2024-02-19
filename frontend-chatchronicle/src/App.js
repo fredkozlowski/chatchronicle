@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import Register from './Register';
+import ChatSessions from './ChatSessions';
 import './App.css';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="App">
       <Login />
       <Register />
+      <ChatSessions />
     </div>
   );
 }

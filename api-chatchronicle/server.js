@@ -18,7 +18,8 @@ app.listen(PORT, () => {
 });
 
 const authenticateUser = async (req, res, next) => {
-  const token = req.headers.token;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Assuming "Bearer TOKEN"
 
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
@@ -52,6 +53,7 @@ app.get('/chat-sessions', authenticateUser, async (req, res) => {
 
 
 app.post('/register', async (req, res) => {
+  console.log("received");
   const { email, password } = req.body;
   const { user, error } = await supabaseServer.auth.signUp({
     email,

@@ -7,7 +7,8 @@ const Register = () => {
 
 const registerUser = async (email, password) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
+    console.log(process.env.REACT_APP_API_URL);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/register`, { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,6 +16,7 @@ const registerUser = async (email, password) => {
       body: JSON.stringify({ email, password }),
     });
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error('Registration error:', error);
